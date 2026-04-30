@@ -22,32 +22,13 @@ The design emphasizes:
 ### Instruction Set Architecture (ISA)
 
 **Instruction Format:** `[7:5] Opcode | [4:0] Operand`
+![format](./format.svg)
 
 **Core Instructions:**
-| Opcode | Mnemonic  | Description                 |
-| ------ | --------- | --------------------------- |
-| 000    | LDI imm5  | A = imm5                    |
-| 001    | ADDI imm5 | A = A + imm5                |
-| 010    | SUBI imm5 | A = A - imm5                |
-| 011    | ALU ops   | Register / logic operations |
-| 100    | OUT       | Output A to pins            |
-| 101    | JNZ       | Jump if A ≠ 0               |
-| 110    | JZ        | Jump if A = 0               |
-| 111    | JMP       | Unconditional jump          |
+![instructions](./opcode.svg)
 
 **ALU Sub-operations (opcode 011):**
-| Sub-op | Function       |
-| ------ | -------------- |
-| 0000   | TAB (B = A)    |
-| 0001   | TBA (A = B)    |
-| 0010   | IN (A = ui_in) |
-| 0011   | ANDB           |
-| 0100   | ORB            |
-| 0101   | XORB           |
-| 0110   | ADDB           |
-| 0111   | SUBB           |
-| 1000   | SHL            |
-| 1001   | SHR            |
+![alu subops](./alu.svg)
 
 ### Architecture & Program Behavior
 
