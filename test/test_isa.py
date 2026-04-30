@@ -1,4 +1,5 @@
 import cocotb
+import os
 from cocotb.clock import Clock
 from cocotb.triggers import RisingEdge, ClockCycles
 from cocotb.handle import Force, Release
@@ -18,7 +19,7 @@ async def exec_inst(dut, opcode, imm5):
     # Wait one more cycle for the register latching
     await RisingEdge(dut.clk)
     
-@cocotb.test()
+@cocotb.test(skip=os.environ.get("GATES", "no") == "yes")
 async def test_isa_exhaustive(dut):
     dut._log.info("Start exhaustive ISA test")
     clock = Clock(dut.clk, 10, unit="us")

@@ -74,6 +74,7 @@ module tt_um_amarjay (
             5'd08: instr = 8'b011_01001; // SHR        (A = A >> 1)
             5'd09: instr = 8'b101_00111; // JNZ 7      (if A != 0, goto 7)
             5'd10: instr = 8'b111_00000; // JMP 0      (PC = 0)
+            default: instr = 8'b111_00000; // JMP 0 (PC = 0)
         endcase
     end
 
@@ -89,9 +90,9 @@ module tt_um_amarjay (
         next_a = a; 
         
         case (opcode)
-            3'b000: next_a = imm5;                      // LDI imm5: Load Immediate (Implicit zero-extension)
-            3'b001: next_a = a + imm5;                  // ADDI imm5: Add Immediate (Implicit zero-extension)
-            3'b010: next_a = a - imm5;                  // SUBI imm5: Subtract Immediate
+            3'b000: next_a = {3'b000, imm5};                      // LDI imm5: Load Immediate (Implicit zero-extension)
+            3'b001: next_a = a + {3'b000, imm5};                  // ADDI imm5: Add Immediate (Implicit zero-extension)
+            3'b010: next_a = a - {3'b000, imm5};                  // SUBI imm5: Subtract Immediate
             3'b011: begin // ALU & Special Register Operations
                 case (imm5[3:0])
                     4'b0000: next_a = a;                // TAB (Transfer A to B, A remains unchanged)
